@@ -41,7 +41,20 @@ public class UserDaoImpl implements UserDao {
     @Override
     public Optional<UserDo> getUser(Long id) {
         Map<String, Object> sqlParams = Collections.singletonMap("id", id);
-        List<UserDo> users = jdbcTemplate.queryForList(SELECT_SQL, sqlParams, UserDo.class);
+        List<UserDo> users = jdbcTemplate.query(SELECT_SQL, sqlParams, (rs, i) -> {
+            UserDo userDo = new UserDo();
+            userDo.setId(rs.getLong("id"));
+            userDo.setFirstName(rs.getString("first_name"));
+            userDo.setLastName(rs.getString("last_name"));
+            userDo.setPatronymicName(rs.getString("patronymic_name"));
+            userDo.setDateOfBirth(rs.getDate("date_of_birth"));
+            userDo.setDateOfRegistration(rs.getDate("date_of_registration"));
+            userDo.setCity(rs.getString("city"));
+            userDo.setMobilePhone(rs.getString("mobile_phone"));
+            userDo.setEmail(rs.getString("email"));
+            userDo.setStatus(rs.getString("status"));
+            return userDo;
+        });
         return users.size() == 1 ? Optional.of(users.get(0)) : Optional.empty();
     }
 
