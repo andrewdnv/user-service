@@ -1,10 +1,12 @@
 package com.github.andrewdnv.service.user.entity;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.sql.Date;
 
 @Data
+@Accessors(chain = true)
 public class UserDo {
 
     private Long id;
