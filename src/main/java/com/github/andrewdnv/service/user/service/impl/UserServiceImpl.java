@@ -3,7 +3,7 @@ package com.github.andrewdnv.service.user.service.impl;
 import com.github.andrewdnv.service.user.dao.api.UserDao;
 import com.github.andrewdnv.service.user.entity.UserDo;
 import com.github.andrewdnv.service.user.exception.NotFoundException;
-import com.github.andrewdnv.service.user.mapper.UserMapper;
+import com.github.andrewdnv.service.user.mapper.api.UserMapper;
 import com.github.andrewdnv.service.user.model.User;
 import com.github.andrewdnv.service.user.service.api.UserService;
 import lombok.RequiredArgsConstructor;

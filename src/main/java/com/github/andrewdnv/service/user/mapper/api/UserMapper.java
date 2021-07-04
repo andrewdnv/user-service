@@ -1,6 +1,7 @@
-package com.github.andrewdnv.service.user.mapper;
+package com.github.andrewdnv.service.user.mapper.api;
 
 import com.github.andrewdnv.service.user.entity.UserDo;
+import com.github.andrewdnv.service.user.mapper.CommonMapper;
 import com.github.andrewdnv.service.user.model.User;
 import com.github.andrewdnv.service.user.model.UserStatus;
 import org.mapstruct.InheritInverseConfiguration;
