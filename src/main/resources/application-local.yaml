@@ -1,0 +1,4 @@
+database:
+  url: jdbc:postgresql://localhost:5432/postgres?currentSchema=service
+  username: user-service
+  password: userservicepwd
