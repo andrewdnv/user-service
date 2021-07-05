@@ -59,7 +59,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserDo createUser(UserDo userDo) {
+    public Optional<UserDo> createUser(UserDo userDo) {
         MapSqlParameterSource sqlParams = new MapSqlParameterSource()
             .addValue("firstName", userDo.getFirstName())
             .addValue("lastName", userDo.getLastName())
@@ -70,20 +70,21 @@ public class UserDaoImpl implements UserDao {
             .addValue("mobilePhone", userDo.getMobilePhone())
             .addValue("email", userDo.getEmail())
             .addValue("status", userDo.getStatus());
+        int result;
         if (userDo.getId() != null) {
             sqlParams.addValue("id", userDo.getId());
-            jdbcTemplate.update(INSERT_SQL, sqlParams);
-            return userDo;
+            result = jdbcTemplate.update(INSERT_SQL, sqlParams);
         } else {
             KeyHolder keyHolder = new GeneratedKeyHolder();
-            jdbcTemplate.update(INSERT_SQL, sqlParams, keyHolder, new String[]{"id"});
+            result = jdbcTemplate.update(INSERT_SQL, sqlParams, keyHolder, new String[]{"id"});
             Long id = (Long) keyHolder.getKey();
-            return userDo.setId(id);
+            userDo.setId(id);
         }
+        return result == 1 ? Optional.of(userDo) : Optional.empty();
     }
 
     @Override
-    public UserDo updateUser(UserDo userDo) {
+    public Optional<UserDo> updateUser(UserDo userDo) {
         SqlParameterSource sqlParams = new MapSqlParameterSource()
             .addValue("id", userDo.getId())
             .addValue("firstName", userDo.getFirstName())
@@ -95,8 +96,8 @@ public class UserDaoImpl implements UserDao {
             .addValue("mobilePhone", userDo.getMobilePhone())
             .addValue("email", userDo.getEmail())
             .addValue("status", userDo.getStatus());
-        jdbcTemplate.update(UPDATE_SQL, sqlParams);
-        return userDo;
+        int result = jdbcTemplate.update(UPDATE_SQL, sqlParams);
+        return result == 1 ? Optional.of(userDo) : Optional.empty();
     }
 
     @Override

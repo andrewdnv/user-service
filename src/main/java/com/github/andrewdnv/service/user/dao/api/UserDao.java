@@ -8,9 +8,9 @@ public interface UserDao {
 
     Optional<UserDo> getUser(Long id);
 
-    UserDo createUser(UserDo userDo);
+    Optional<UserDo> createUser(UserDo userDo);
 
-    UserDo updateUser(UserDo userDo);
+    Optional<UserDo> updateUser(UserDo userDo);
 
     boolean deleteUser(Long id);
 
