@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping(path = "/api/v1/users")
 @RequiredArgsConstructor
@@ -21,13 +23,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping
-    public ResponseEntity<User> createOrUpdateUser(@RequestBody User user) {
+    public ResponseEntity<User> createOrUpdateUser(@Valid @RequestBody User user) {
         User savedUser = userService.createOrUpdateUser(user);
         return ResponseEntity.ok(savedUser);
     }
