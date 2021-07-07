@@ -70,16 +70,10 @@ public class UserDaoImpl implements UserDao {
             .addValue("mobilePhone", userDo.getMobilePhone())
             .addValue("email", userDo.getEmail())
             .addValue("status", userDo.getStatus());
-        int result;
-        if (userDo.getId() != null) {
-            sqlParams.addValue("id", userDo.getId());
-            result = jdbcTemplate.update(INSERT_SQL, sqlParams);
-        } else {
-            KeyHolder keyHolder = new GeneratedKeyHolder();
-            result = jdbcTemplate.update(INSERT_SQL, sqlParams, keyHolder, new String[]{"id"});
-            Long id = (Long) keyHolder.getKey();
-            userDo.setId(id);
-        }
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        int result = jdbcTemplate.update(INSERT_SQL, sqlParams, keyHolder, new String[]{"id"});
+        Long id = (Long) keyHolder.getKey();
+        userDo.setId(id);
         return result == 1 ? Optional.of(userDo) : Optional.empty();
     }
 
