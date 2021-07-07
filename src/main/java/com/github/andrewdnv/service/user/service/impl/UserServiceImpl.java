@@ -11,8 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -40,17 +38,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public User createOrUpdateUser(User user) {
-        Optional<UserDo> userDoOptional = userDao.getUser(user.getUserId());
+    public User updateUser(User user) {
         UserDo userDo = userMapper.toUserDo(user);
-        UserDo savedUserDo;
-        if (userDoOptional.isEmpty()) {
-            savedUserDo = userDao.createUser(userDo)
-                .orElseThrow(() -> new UnexpectedException("User creation error"));
-        } else {
-            savedUserDo = userDao.updateUser(userDo)
-                .orElseThrow(() -> new UnexpectedException("User update error"));
-        }
+        UserDo savedUserDo = userDao.updateUser(userDo)
+            .orElseThrow(() -> new UnexpectedException("User update error"));
         return userMapper.toUser(savedUserDo);
     }
 

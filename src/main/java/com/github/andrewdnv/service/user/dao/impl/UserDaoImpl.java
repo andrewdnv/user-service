@@ -23,9 +23,9 @@ public class UserDaoImpl implements UserDao {
         "date_of_birth, date_of_registration, city, mobile_phone, email, status " +
         "FROM user WHERE id = :id";
 
-    private static final String INSERT_SQL = "INSERT INTO user (id, first_name, last_name, patronymic_name, " +
+    private static final String INSERT_SQL = "INSERT INTO user (first_name, last_name, patronymic_name, " +
         "date_of_birth, date_of_registration, city, mobile_phone, email, status) " +
-        "VALUES (:id, :firstName, :lastName, :patronymicName, " +
+        "VALUES (:firstName, :lastName, :patronymicName, " +
         ":dateOfBirth, :dateOfRegistration, :city, :mobilePhone, :email, :status)";
 
     private static final String UPDATE_SQL = "UPDATE user " +

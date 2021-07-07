@@ -29,8 +29,8 @@ public class UserController {
     }
 
     @PutMapping
-    public ResponseEntity<User> createOrUpdateUser(@Valid @RequestBody User user) {
-        User savedUser = userService.createOrUpdateUser(user);
+    public ResponseEntity<User> updateUser(@Valid @RequestBody User user) {
+        User savedUser = userService.updateUser(user);
         return ResponseEntity.ok(savedUser);
     }
 
