@@ -1,6 +1,7 @@
 package com.github.andrewdnv.service.user.model;
 
 import com.github.andrewdnv.service.user.validation.HasContacts;
+import com.github.andrewdnv.service.user.validation.group.PutValidation;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 @HasContacts
 public class User {
 
-    @NotNull
+    @NotNull(groups = PutValidation.class)
     @Min(1)
     private Long userId;
 
@@ -36,7 +37,7 @@ public class User {
     @Length(min = 1, max = 255)
     private String city;
 
-    @Pattern(regexp = "\\+[0-9]{1,11}")
+    @Pattern(regexp = "\\+?[0-9]{1,11}")
     private String mobilePhone;
 
     @Pattern(regexp = "[a-z0-9\\-]+@[a-z0-9\\-]+\\.[a-z0-9\\-]+")
