@@ -21,20 +21,20 @@ public class UserDaoImpl implements UserDao {
 
     private static final String SELECT_SQL = "SELECT id, first_name, last_name, patronymic_name, " +
         "date_of_birth, date_of_registration, city, mobile_phone, email, status " +
-        "FROM user WHERE id = :id";
+        "FROM users WHERE id = :id";
 
-    private static final String INSERT_SQL = "INSERT INTO user (first_name, last_name, patronymic_name, " +
+    private static final String INSERT_SQL = "INSERT INTO users (first_name, last_name, patronymic_name, " +
         "date_of_birth, date_of_registration, city, mobile_phone, email, status) " +
         "VALUES (:firstName, :lastName, :patronymicName, " +
         ":dateOfBirth, :dateOfRegistration, :city, :mobilePhone, :email, :status)";
 
-    private static final String UPDATE_SQL = "UPDATE user " +
+    private static final String UPDATE_SQL = "UPDATE users " +
         "SET first_name = :firstName, last_name = :lastName, patronymic_name = :patronymicName, " +
         "date_of_birth = :dateOfBirth, date_of_registration = :dateOfRegistration, " +
         "city = :city, mobile_phone = :mobilePhone, email = :email, status = :status " +
         "WHERE id = :id";
 
-    private static final String DELETE_SQL = "DELETE from user WHERE id = :id";
+    private static final String DELETE_SQL = "DELETE from users WHERE id = :id";
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
