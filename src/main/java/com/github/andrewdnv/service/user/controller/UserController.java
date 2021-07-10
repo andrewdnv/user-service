@@ -1,14 +1,20 @@
 package com.github.andrewdnv.service.user.controller;
 
+import com.github.andrewdnv.service.user.exception.NotFoundException;
 import com.github.andrewdnv.service.user.model.User;
 import com.github.andrewdnv.service.user.service.api.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingRequestValueException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+@Slf4j
 @RestController
 @RequestMapping(path = "/api/v1/users")
 @RequiredArgsConstructor
@@ -38,6 +44,28 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(value = {
+        ConstraintViolationException.class,
+        MethodArgumentNotValidException.class,
+        MissingRequestValueException.class
+    })
+    public void handleBadRequestException(Exception ex) {
+        log.error("Bad request: ", ex);
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(value = NotFoundException.class)
+    public void handleNotFoundException(NotFoundException ex) {
+        log.error("Resource not found: ", ex);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(value = Throwable.class)
+    public void handleUnexpectedException(Throwable ex) {
+        log.error("Unexpected exception: ", ex);
     }
 
 }

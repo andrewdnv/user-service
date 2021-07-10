@@ -10,8 +10,7 @@ public class JacksonConfig {
 
     @Bean
     public Jackson2ObjectMapperBuilderCustomizer objectMapperBuilderCustomizer() {
-        return jacksonObjectMapperBuilder ->
-            jacksonObjectMapperBuilder.serializationInclusion(JsonInclude.Include.NON_NULL);
+        return builder -> builder.serializationInclusion(JsonInclude.Include.NON_NULL);
     }
 
 }
