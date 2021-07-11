@@ -3,6 +3,7 @@ package com.github.andrewdnv.service.user.model;
 import com.github.andrewdnv.service.user.validation.HasContacts;
 import com.github.andrewdnv.service.user.validation.group.PutValidation;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
@@ -12,10 +13,11 @@ import java.time.LocalDate;
 
 @Data
 @HasContacts
+@Accessors(chain = true)
 public class User {
 
     @NotNull(groups = PutValidation.class)
-    @Min(1)
+    @Min(value = 1, groups = PutValidation.class)
     private Long userId;
 
     @NotNull

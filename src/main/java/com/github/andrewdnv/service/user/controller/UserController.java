@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
-    @PutMapping
+    @PutMapping(path = "/{id}")
     public ResponseEntity<User> updateUser(@Validated(PutValidation.class) @RequestBody User user) {
         User savedUser = userService.updateUser(user);
         return ResponseEntity.ok(savedUser);
