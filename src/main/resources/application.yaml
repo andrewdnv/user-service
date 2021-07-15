@@ -1,0 +1,8 @@
+server:
+  port: 8081
+
+database:
+  driverClassName: org.postgresql.Driver
+  url:
+  username:
+  password:
