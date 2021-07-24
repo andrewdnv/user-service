@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 @Slf4j
 @RestController
@@ -31,13 +32,13 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<User> createUser(@NotNull @Valid @RequestBody User user) {
         User savedUser = userService.createUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<User> updateUser(@Validated(PutValidation.class) @RequestBody User user) {
+    public ResponseEntity<User> updateUser(@NotNull @Validated(PutValidation.class) @RequestBody User user) {
         User savedUser = userService.updateUser(user);
         return ResponseEntity.ok(savedUser);
     }
